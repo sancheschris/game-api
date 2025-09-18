@@ -1,7 +1,19 @@
 import { randomUUID } from "crypto";
 import { Character, Job } from "../models/character";
+import { validateJob, validateName } from "../util/validation";
 
-export function createCharacter(name: string, job: Job): Character {
+export function createCharacter(
+  name: string,
+  job: string
+): { success: boolean; character?: Character; errors?: string[] } {
+  const nameErrors = validateName(name);
+  const jobErrors = validateJob(job);
+  const errors = [...nameErrors, ...jobErrors];
+
+  if (errors.length > 0) {
+    return { success: false, errors };
+  }
+
   let health = 0,
     strength = 0,
     dexterity = 0,
@@ -38,10 +50,10 @@ export function createCharacter(name: string, job: Job): Character {
       break;
   }
 
-  return {
+  const character: Character = {
     id: randomUUID(),
     name,
-    job,
+    job: job as Job,
     health,
     strength,
     dexterity,
@@ -49,4 +61,6 @@ export function createCharacter(name: string, job: Job): Character {
     attackModifier,
     speedModifier,
   };
+
+  return { success: true, character, errors: [] };
 }

@@ -13,17 +13,13 @@ export const resolvers = {
   },
   Mutation: {
     createCharacter: (_: any, { name, job }: { name: string; job: Job }) => {
-      const nameErrors = validateName(name);
-      const jobErrors = validateName(job);
-      const errors = [...nameErrors, ...jobErrors];
+      const result = createCharacter(name, job);
 
-      if (errors.length > 0) {
-        return { success: false, errors };
+      if (result.success && result.character) {
+        characters.push(result.character);
       }
 
-      const character = createCharacter(name, job);
-      characters.push(character);
-      return character;
+      return result;
     },
   },
 };

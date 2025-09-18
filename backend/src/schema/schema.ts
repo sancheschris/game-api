@@ -17,18 +17,18 @@ export const typeDefs = `
     speedModifier: Float!
   }
 
-  type CreateCharacterResult {
-    success: Boolean!
-    character: Character
-    errors: [String!]!
-  }
-
   type Query {
     listCharacters: [Character!]!
     character(id: ID!): Character
   }
 
+  type CreateCharacterResponse {
+    success: Boolean!
+    character: Character
+    errors: [String!]
+  }
+
   type Mutation {
-    createCharacter(name: String!, job: Job!): CreateCharacterResult!
+    createCharacter(name: String!, job: Job!): CreateCharacterResponse!
   }
 `;
