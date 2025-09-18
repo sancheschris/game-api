@@ -12,9 +12,9 @@ export const validateName = (name: string): string[] => {
 };
 
 
-export const validateJob = (job: Job): string[] => {
+export const validateJob = (job: string): string[] => {
     const allowedJobs = Object.values(Job);
-    if (!allowedJobs.includes(job)) {
+    if (!allowedJobs.includes(job as Job)) {
         return ["Job must be one of: Warrior, Thief, or Mage"];
     }
     return [];
