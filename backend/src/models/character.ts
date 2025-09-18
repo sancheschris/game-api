@@ -1,4 +1,8 @@
-export type Job = "Warrior" | "Thief" | "Mage";
+export enum Job {
+  Warrior = "Warrior",
+  Thief = "Thief",
+  Mage = "Mage",
+}
 
 export interface Character {
   id: string;
