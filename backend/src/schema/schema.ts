@@ -17,9 +17,20 @@ export const typeDefs = `
     speedModifier: Float!
   }
 
+  type JobStats {
+    name: Job!
+    health: Int!
+    strength: Int!
+    dexterity: Int!
+    intelligence: Int!
+    attack: String!
+    speed: String!
+  }
+
   type Query {
     listCharacters: [Character!]!
     character(id: ID!): Character
+    jobs: [JobStats!]!
   }
 
   type CreateCharacterResponse {
