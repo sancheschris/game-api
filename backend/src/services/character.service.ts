@@ -60,6 +60,7 @@ export function createCharacter(
     intelligence,
     attackModifier,
     speedModifier,
+    alive: true,
   };
 
   return { success: true, character, errors: [] };

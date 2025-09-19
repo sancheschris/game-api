@@ -14,4 +14,5 @@ export interface Character {
   intelligence: number;
   attackModifier: number;
   speedModifier: number;
+  alive: boolean;
 }

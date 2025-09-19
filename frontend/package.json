@@ -11,9 +11,11 @@
   },
   "dependencies": {
     "@apollo/client": "^4.0.5",
+    "@types/react-router-dom": "^5.3.3",
     "graphql": "^16.11.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-router-dom": "^7.9.1",
     "styled-components": "^6.1.19"
   },
   "devDependencies": {

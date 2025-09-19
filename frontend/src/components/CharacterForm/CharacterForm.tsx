@@ -2,6 +2,10 @@ import React, { useState, useMemo } from "react";
 import styled from "styled-components";
 import { gql } from "@apollo/client";
 import { useQuery, useMutation } from "@apollo/client/react";
+import JobGrid from "./JobGrid";
+import CreateButton from "./CreateButton";
+import type { Character } from "../../types/Character";
+import type { JobStats } from "../../types/JobStats";
 
 const JOBS_QUERY = gql`
   query Jobs {
@@ -63,69 +67,21 @@ const Input = styled.input`
   border-radius: 6px;
 `;
 
-const JobGrid = styled.div`
-  display: flex;
-  gap: 2rem;
-  margin-bottom: 2rem;
-`;
+// type Character = {
+//   id: string;
+//   name: string;
+//   job: string;
+// };
 
-const JobCard = styled.div<{ selected: boolean }>`
-  flex: 1;
-  border: 2px solid ${({ selected }) => (selected ? "#7c3aed" : "#ccc")};
-  border-radius: 12px;
-  padding: 1.5rem;
-  background: ${({ selected }) => (selected ? "#f3f0ff" : "#fff")};
-  cursor: pointer;
-  transition: border 0.2s, background 0.2s;
-  box-shadow: ${({ selected }) =>
-    selected ? "0 2px 12px rgba(124,58,237,0.08)" : "none"};
-`;
-
-const StatBox = styled.div`
-  background: #f9f9fb;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-top: 1rem;
-  font-size: 1rem;
-`;
-
-const Stat = styled.p`
-  margin: 0.3rem 0;
-  font-weight: 500;
-`;
-
-const CreateButton = styled.button`
-  width: 100%;
-  padding: 1rem;
-  background: #7c3aed;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 2rem;
-  transition: background 0.2s;
-  &:hover {
-    background: #5b21b6;
-  }
-`;
-
-type Character = {
-  id: string;
-  name: string;
-  job: string;
-};
-
-type JobStats = {
-  name: string;
-  health: number;
-  strength: number;
-  dexterity: number;
-  intelligence: number;
-  attack: string;
-  speed: string;
-};
+// type JobStats = {
+//   name: string;
+//   health: number;
+//   strength: number;
+//   dexterity: number;
+//   intelligence: number;
+//   attack: string;
+//   speed: string;
+// };
 
 type JobsQueryData = {
   jobs: JobStats[];
@@ -201,44 +157,16 @@ export default function CharacterForm() {
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <JobGrid>
-        {jobs.map((job) => (
-          <JobCard
-            key={job.name}
-            selected={selectedJob === job.name}
-            onClick={() => setSelectedJob(job.name)}
-          >
-            <h2 style={{ textAlign: "center" }}>{job.name}</h2>
-            <StatBox>
-              <Stat>
-                ❤️ <b>Life Points:</b> {job.health}
-              </Stat>
-              <Stat>
-                💪 <b>Strength:</b> {job.strength}
-              </Stat>
-              <Stat>
-                🦶 <b>Dexterity:</b> {job.dexterity}
-              </Stat>
-              <Stat>
-                🧠 <b>Intelligence:</b> {job.intelligence}
-              </Stat>
-              <Stat>
-                💥 <b>Attack:</b> {job.attack}
-              </Stat>
-              <Stat>
-                🏎️ <b>Speed:</b> {job.speed}
-              </Stat>
-            </StatBox>
-          </JobCard>
-        ))}
-      </JobGrid>
+      <JobGrid
+        jobs={jobs}
+        selectedJob={selectedJob}
+        onSelect={setSelectedJob}
+      />
       {errorMsg && (
         <div style={{ color: "red", marginBottom: 12 }}>{errorMsg}</div>
       )}
-      <CreateButton onClick={handleCreate} disabled={creating}>
-        {creating ? "Creating..." : "Create Character"}
-      </CreateButton>
-      <div style={{ marginTop: 32 }}>
+      <CreateButton onClick={handleCreate} loading={jobsLoading} />
+      {/* <div style={{ marginTop: 32 }}>
         <h2>Characters</h2>
         <ul>
           {characters.map((char) => (
@@ -247,7 +175,7 @@ export default function CharacterForm() {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
     </Container>
   );
 }

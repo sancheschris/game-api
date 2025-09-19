@@ -15,6 +15,7 @@ export const typeDefs = `
     intelligence: Int!
     attackModifier: Float!
     speedModifier: Float!
+    alive: Boolean!
   }
 
   type JobStats {

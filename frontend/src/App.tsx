@@ -1,7 +1,9 @@
 // import { gql } from "@apollo/client";
 // import { useQuery } from "@apollo/client/react";
 
-import CharacterForm from "./features/CharacterForm";
+import CharacterForm from "./components/CharacterForm/CharacterForm";
+import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import CharacterListPage from "./components/CharacterListPage/CharacterListPage";
 
 // const LIST_CHARACTERS = gql`
 //   query {
@@ -45,9 +47,20 @@ function App() {
   //   </>
   // );
   return (
-    <div>
-      <CharacterForm />
-    </div>
+    <Router>
+      <nav>
+        <Link to="/">Create Character</Link>
+        {" | "}
+        <Link to="/characters">Character List</Link>
+      </nav>
+      <Routes>
+        <Route path="/" element={<CharacterForm />} />
+        <Route
+          path="/characters"
+          element={<CharacterListPage listCharacters={[]} />}
+        />
+      </Routes>
+    </Router>
   );
 }
 
