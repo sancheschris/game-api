@@ -120,7 +120,7 @@ const CharacterListPage = (): React.ReactElement => {
 
       {selectedCharacterId && (
         <Modal onClose={handleCloseModal}>
-          <CharacterDetails characterId={selectedCharacterId} asModal={true} />
+          <CharacterDetails characterId={selectedCharacterId} isModal={true} />
         </Modal>
       )}
     </Container>
